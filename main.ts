@@ -70,7 +70,7 @@ joystickbit.onButtonEvent(joystickbit.JoystickBitPin.P12, joystickbit.ButtonType
     }
 })
 let inicialised = false
-radio.setGroup(128)
+radio.setGroup(19)
 inicialised = false
 datalogger.setColumnTitles(
 "button",
