@@ -3,7 +3,7 @@ joystickbit.onButtonEvent(joystickbit.JoystickBitPin.P14, joystickbit.ButtonType
     datalogger.createCV("button", "E"),
     datalogger.createCV("inicialised", inicialised),
     datalogger.createCV("send variable name", "drive"),
-    datalogger.createCV("send variable value", code(50, -50))
+    datalogger.createCV("send variable value", code(-50, -50))
     )
     if (inicialised) {
         radio.sendValue("drive", code(-50, -50))
@@ -23,10 +23,10 @@ joystickbit.onButtonEvent(joystickbit.JoystickBitPin.P15, joystickbit.ButtonType
     datalogger.createCV("button", "F"),
     datalogger.createCV("inicialised", inicialised),
     datalogger.createCV("send variable name", "drive"),
-    datalogger.createCV("send variable value", code(50, -50))
+    datalogger.createCV("send variable value", code(14, -14))
     )
     if (inicialised) {
-        radio.sendValue("drive", code(50, -50))
+        radio.sendValue("drive", code(14, -14))
     }
 })
 input.onButtonPressed(Button.AB, function () {
@@ -63,10 +63,10 @@ joystickbit.onButtonEvent(joystickbit.JoystickBitPin.P12, joystickbit.ButtonType
     datalogger.createCV("button", "C"),
     datalogger.createCV("inicialised", inicialised),
     datalogger.createCV("send variable name", "drive"),
-    datalogger.createCV("send variable value", code(-50, 50))
+    datalogger.createCV("send variable value", code(-15, 15))
     )
     if (inicialised) {
-        radio.sendValue("drive", code(-50, 50))
+        radio.sendValue("drive", code(-15, 15))
     }
 })
 let inicialised = false
@@ -76,7 +76,9 @@ datalogger.setColumnTitles(
 "button",
 "inicialised",
 "send variable name",
-"send variable value"
+"send variable value",
+"rocker value of x",
+"rocker value of y"
 )
 datalogger.includeTimestamp(FlashLogTimeStampFormat.Seconds)
 joystickbit.initJoystickBit()
