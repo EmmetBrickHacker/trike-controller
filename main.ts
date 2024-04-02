@@ -108,9 +108,9 @@ basic.forever(function () {
 })
 basic.forever(function () {
     if (!(cross_control)) {
-        Y = Math.map(joystickbit.getRockerValue(joystickbit.rockerType.Y), 0, 1023, -100, 100)
-        X = Math.map(joystickbit.getRockerValue(joystickbit.rockerType.X), 1023, 0, -100, 100)
-        speed = Math.sqrt(X ** 2 + Y ** 2)
+        Y = Math.round(Math.map(joystickbit.getRockerValue(joystickbit.rockerType.Y), 0, 1023, -100, 100))
+        X = Math.round(Math.map(joystickbit.getRockerValue(joystickbit.rockerType.X), 1023, 0, -100, 100))
+        speed = Math.round(Math.sqrt(X ** 2 + Y ** 2))
         if (speed > 100) {
             speed = 100
         } else if (speed < 15) {
@@ -121,7 +121,7 @@ basic.forever(function () {
         }
         steering = Math.abs(Y) - Math.abs(X)
         ratio = speed / 100
-        steering_speed = speed * ratio
+        steering_speed = Math.round(speed * ratio)
         if (steering_speed < 15 && steering_speed > -15) {
             steering_speed = 0
         }
@@ -130,6 +130,14 @@ basic.forever(function () {
         } else {
             radio.sendValue("drive", code(steering_speed, speed))
         }
-        basic.pause(100)
+        datalogger.log(
+        datalogger.createCV("button", "joystick"),
+        datalogger.createCV("inicialised", inicialised),
+        datalogger.createCV("send variable name", "drive"),
+        datalogger.createCV("send variable value", code(speed, steering_speed)),
+        datalogger.createCV("rocker value X", X),
+        datalogger.createCV("rocker value Y", Y)
+        )
+        basic.pause(50)
     }
 })
