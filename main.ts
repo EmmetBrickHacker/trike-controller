@@ -80,7 +80,11 @@ datalogger.setColumnTitles(
 "send variable name",
 "send variable value",
 "rocker value X",
-"rocker value Y"
+"rocker value Y",
+"speed",
+"steering speed",
+"steering",
+"ratio"
 )
 datalogger.includeTimestamp(FlashLogTimeStampFormat.Seconds)
 joystickbit.initJoystickBit()
@@ -121,14 +125,14 @@ basic.forever(function () {
         }
         steering = Math.abs(Y) - Math.abs(X)
         ratio = speed / 100
-        steering_speed = Math.round(speed * ratio)
+        steering_speed = Math.round(steering * ratio)
         if (steering_speed < 15 && steering_speed > -15) {
             steering_speed = 0
         }
         if (X < 0) {
-            radio.sendValue("drive", code(speed, steering_speed))
-        } else {
             radio.sendValue("drive", code(steering_speed, speed))
+        } else {
+            radio.sendValue("drive", code(speed, steering_speed))
         }
         datalogger.log(
         datalogger.createCV("button", "joystick"),
