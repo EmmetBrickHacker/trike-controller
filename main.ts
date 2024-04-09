@@ -3,7 +3,7 @@ joystickbit.onButtonEvent(joystickbit.JoystickBitPin.P14, joystickbit.ButtonType
     datalogger.createCV("button", "E"),
     datalogger.createCV("inicialised", inicialised),
     datalogger.createCV("send variable name", "drive"),
-    datalogger.createCV("send variable value", code(50, -50))
+    datalogger.createCV("send variable value", code(-50, -50))
     )
     if (inicialised && cross_control) {
         radio.sendValue("drive", code(-50, -50))
@@ -92,6 +92,7 @@ inicialised = true
 cross_control = false
 basic.forever(function () {
     if (cross_control) {
+        // sign of control by buttons
         basic.showLeds(`
             . . # . .
             . . # . .
@@ -100,6 +101,7 @@ basic.forever(function () {
             . . # . .
             `)
     } else {
+        // sign of control by joystick
         basic.showLeds(`
             . # # # .
             # . . . #
@@ -134,14 +136,18 @@ basic.forever(function () {
         } else {
             radio.sendValue("drive", code(speed, steering_speed))
         }
-        datalogger.log(
-        datalogger.createCV("button", "joystick"),
-        datalogger.createCV("inicialised", inicialised),
-        datalogger.createCV("send variable name", "drive"),
-        datalogger.createCV("send variable value", code(speed, steering_speed)),
-        datalogger.createCV("rocker value X", X),
-        datalogger.createCV("rocker value Y", Y)
-        )
-        basic.pause(50)
     }
+    datalogger.log(
+    datalogger.createCV("button", "joystick"),
+    datalogger.createCV("inicialised", inicialised),
+    datalogger.createCV("send variable name", "drive"),
+    datalogger.createCV("send variable value", code(speed, steering_speed)),
+    datalogger.createCV("rocker value X", X),
+    datalogger.createCV("rocker value Y", Y),
+    datalogger.createCV("speed", speed),
+    datalogger.createCV("steering speed", steering_speed),
+    datalogger.createCV("steering", steering),
+    datalogger.createCV("ratio", ratio)
+    )
+    basic.pause(50)
 })
