@@ -1,12 +1,21 @@
-joystickbit.onButtonEvent(joystickbit.JoystickBitPin.P14, joystickbit.ButtonType.down, function () {
+input.onButtonPressed(Button.A, function () {
     datalogger.log(
-    datalogger.createCV("button", "E"),
+    datalogger.createCV("button", "A"),
     datalogger.createCV("inicialised", inicialised),
     datalogger.createCV("send variable name", "drive"),
-    datalogger.createCV("send variable value", code(-50, -50))
+    datalogger.createCV("send variable value", code(0, 0))
+    )
+    radio.sendValue("drive", code(0, 0))
+})
+joystickbit.onButtonEvent(joystickbit.JoystickBitPin.P13, joystickbit.ButtonType.down, function () {
+    datalogger.log(
+    datalogger.createCV("button", "D"),
+    datalogger.createCV("inicialised", inicialised),
+    datalogger.createCV("send variable name", "drive"),
+    datalogger.createCV("send variable value", code(50, 50))
     )
     if (inicialised && cross_control) {
-        radio.sendValue("drive", code(-50, -50))
+        radio.sendValue("drive", code(50, 50))
     }
 })
 joystickbit.onButtonEvent(joystickbit.JoystickBitPin.P12, joystickbit.ButtonType.down, function () {
@@ -19,15 +28,6 @@ joystickbit.onButtonEvent(joystickbit.JoystickBitPin.P12, joystickbit.ButtonType
     if (inicialised && cross_control) {
         radio.sendValue("drive", code(-50, 50))
     }
-})
-input.onButtonPressed(Button.A, function () {
-    datalogger.log(
-    datalogger.createCV("button", "A"),
-    datalogger.createCV("inicialised", inicialised),
-    datalogger.createCV("send variable name", "drive"),
-    datalogger.createCV("send variable value", code(0, 0))
-    )
-    radio.sendValue("drive", code(0, 0))
 })
 input.onButtonPressed(Button.AB, function () {
     datalogger.log(
@@ -42,17 +42,6 @@ input.onButtonPressed(Button.AB, function () {
 function code (LM_speed: number, RM_speed: number) {
     return (100 + LM_speed) * 1000 + (100 + RM_speed)
 }
-joystickbit.onButtonEvent(joystickbit.JoystickBitPin.P13, joystickbit.ButtonType.down, function () {
-    datalogger.log(
-    datalogger.createCV("button", "D"),
-    datalogger.createCV("inicialised", inicialised),
-    datalogger.createCV("send variable name", "drive"),
-    datalogger.createCV("send variable value", code(50, 50))
-    )
-    if (inicialised && cross_control) {
-        radio.sendValue("drive", code(50, 50))
-    }
-})
 joystickbit.onButtonEvent(joystickbit.JoystickBitPin.P15, joystickbit.ButtonType.down, function () {
     datalogger.log(
     datalogger.createCV("button", "F"),
@@ -64,6 +53,17 @@ joystickbit.onButtonEvent(joystickbit.JoystickBitPin.P15, joystickbit.ButtonType
         radio.sendValue("drive", code(50, -50))
     }
 })
+joystickbit.onButtonEvent(joystickbit.JoystickBitPin.P14, joystickbit.ButtonType.down, function () {
+    datalogger.log(
+    datalogger.createCV("button", "E"),
+    datalogger.createCV("inicialised", inicialised),
+    datalogger.createCV("send variable name", "drive"),
+    datalogger.createCV("send variable value", code(-50, -50))
+    )
+    if (inicialised && cross_control) {
+        radio.sendValue("drive", code(-50, -50))
+    }
+})
 let steering_speed = 0
 let ratio = 0
 let steering = 0
@@ -72,7 +72,7 @@ let X = 0
 let Y = 0
 let cross_control = false
 let inicialised = false
-radio.setGroup(128)
+radio.setGroup(19)
 inicialised = false
 datalogger.setColumnTitles(
 "button",
