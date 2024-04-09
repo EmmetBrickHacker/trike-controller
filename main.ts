@@ -3,7 +3,7 @@ joystickbit.onButtonEvent(joystickbit.JoystickBitPin.P14, joystickbit.ButtonType
     datalogger.createCV("button", "E"),
     datalogger.createCV("inicialised", inicialised),
     datalogger.createCV("send variable name", "drive"),
-    datalogger.createCV("send variable value", code(50, -50))
+    datalogger.createCV("send variable value", code(-50, -50))
     )
     if (inicialised && cross_control) {
         radio.sendValue("drive", code(-50, -50))
