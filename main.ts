@@ -53,6 +53,91 @@ joystickbit.onButtonEvent(joystickbit.JoystickBitPin.P13, joystickbit.ButtonType
         radio.sendValue("drive", code(50, 50))
     }
 })
+input.onLogoEvent(TouchButtonEvent.Pressed, function () {
+    datalogger.deleteLog()
+    indicator = false
+    basic.showLeds(`
+        # # # # #
+        # # . # #
+        # . # . #
+        # . . . #
+        # # # # #
+        `)
+    basic.pause(animation_speed)
+    basic.showLeds(`
+        # # # # #
+        # # . # #
+        # . # . #
+        # . . . #
+        . . . . .
+        `)
+    basic.pause(animation_speed)
+    basic.showLeds(`
+        . . . . .
+        # # # # #
+        # # . # #
+        # . # . #
+        # . . . #
+        `)
+    basic.pause(animation_speed)
+    basic.showLeds(`
+        . . . . .
+        # # # # #
+        # # . # #
+        # . # . #
+        . . . . .
+        `)
+    basic.pause(animation_speed)
+    basic.showLeds(`
+        . . . . .
+        . . . . .
+        # # # # #
+        # # . # #
+        # . # . #
+        `)
+    basic.pause(animation_speed)
+    basic.showLeds(`
+        . . . . .
+        . . . . .
+        # # # # #
+        # # . # #
+        . . . . .
+        `)
+    basic.pause(animation_speed)
+    basic.showLeds(`
+        . . . . .
+        . . . . .
+        . . . . .
+        # # # # #
+        # # . # #
+        `)
+    basic.pause(animation_speed)
+    basic.showLeds(`
+        . . . . .
+        . . . . .
+        . . . . .
+        # # # # #
+        . . . . .
+        `)
+    basic.pause(animation_speed)
+    basic.showLeds(`
+        . . . . .
+        . . . . .
+        . . . . .
+        . . . . .
+        # # # # #
+        `)
+    basic.pause(animation_speed)
+    basic.showLeds(`
+        . . . . .
+        . . . . .
+        . . . . .
+        . . . . .
+        . . . . .
+        `)
+    basic.pause(animation_speed)
+    indicator = true
+})
 joystickbit.onButtonEvent(joystickbit.JoystickBitPin.P15, joystickbit.ButtonType.down, function () {
     datalogger.log(
     datalogger.createCV("button", "F"),
@@ -70,9 +155,12 @@ let steering = 0
 let speed = 0
 let X = 0
 let Y = 0
+let indicator = false
 let cross_control = false
 let inicialised = false
+let animation_speed = 0
 radio.setGroup(128)
+animation_speed = 10
 inicialised = false
 datalogger.setColumnTitles(
 "button",
@@ -90,25 +178,28 @@ datalogger.includeTimestamp(FlashLogTimeStampFormat.Seconds)
 joystickbit.initJoystickBit()
 inicialised = true
 cross_control = false
+indicator = true
 basic.forever(function () {
-    if (cross_control) {
-        // sign of control by buttons
-        basic.showLeds(`
-            . . # . .
-            . . # . .
-            # # . # #
-            . . # . .
-            . . # . .
-            `)
-    } else {
-        // sign of control by joystick
-        basic.showLeds(`
-            . # # # .
-            # . . . #
-            # . # . #
-            # . . . #
-            . # # # .
-            `)
+    if (indicator) {
+        if (cross_control) {
+            // sign of control by buttons
+            basic.showLeds(`
+                . . # . .
+                . . # . .
+                # # . # #
+                . . # . .
+                . . # . .
+                `)
+        } else {
+            // sign of control by joystick
+            basic.showLeds(`
+                . # # # .
+                # . . . #
+                # . # . #
+                # . . . #
+                . # # # .
+                `)
+        }
     }
     basic.pause(1000)
 })
